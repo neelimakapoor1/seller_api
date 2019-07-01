@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  targetNamespace="http://mws.amazonaws.com/schema/Products/2011-10-01"
+  elementFormDefault="qualified"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:tns="http://mws.amazonaws.com/schema/Products/2011-10-01"
+  version="1.3">
+
+
+  <element name="Products" type="tns:ProductList" />
+  <complexType name="ProductList">
+    <sequence>
+      <element name="Product" type="tns:ProductType" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <element name="Product" type="tns:ProductType" />
+  <complexType name="ProductType">
+    <sequence>
+      <element ref="tns:Identifiers" />
+      <element name="AttributeSets" type="tns:AttributeSetList" minOccurs="0" />
+      <element name="Relationships" type="tns:RelationshipList" minOccurs="0" />
+      <element name="CompetitivePricing" type="tns:CompetitivePricingType" minOccurs="0" />
+      <element name="SalesRankings" type="tns:SalesRankList" minOccurs="0" />
+      <element name="LowestOfferListings" type="tns:LowestOfferListingList" minOccurs="0" />
+      <element name="Offers" type="tns:OffersList" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="RelationshipList">
+    <sequence>
+      <element ref="tns:BaseRelationship" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="AttributeSetList">
+    <sequence>
+      <element ref="tns:AttributeSet" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+    
+  <element name="VariationParent"
+           type="tns:VariationParentType"
+           substitutionGroup="tns:BaseRelationship" />
+           
+  <complexType name="VariationParentType">
+    <complexContent>
+      <extension base="tns:BaseRelationshipType" />
+    </complexContent>
+  </complexType>
+  
+  <element name="AttributeSet" abstract="true" type="tns:AttributeSetType" />
+
+  <complexType name="AttributeSetType">
+    <sequence>
+      <element name="nil" minOccurs="0" />
+    </sequence>
+  </complexType>
+
+  <element name="Identifiers" type="tns:IdentifierType" />
+
+  <complexType name="IdentifierType">
+    <sequence>
+      <element name="MarketplaceASIN" type="tns:MarketplaceASINType" />  
+      <element name="SKUIdentifier" type="tns:SellerSKUIdentifier" minOccurs="0"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="MarketplaceASINType">
+    <sequence>
+      <element name="MarketplaceId" type="tns:MarketplaceIdType" />
+      <element name="ASIN" type="string" />
+    </sequence>
+  </complexType>
+
+  <complexType name="SellerSKUIdentifier">
+    <sequence>
+      <element name="MarketplaceId" type="string"/>
+      <element name="SellerId" type="string"/>
+      <element name="SellerSKU" type="string"/>
+    </sequence>
+  </complexType>
+
+  <simpleType name="MarketplaceIdType">
+    <restriction base="string" >
+      <pattern value="[A-Z0-9]+" />
+    </restriction>
+  </simpleType>
+
+  <element name="BaseRelationship"
+           abstract="true" 
+           type="tns:BaseRelationshipType" />
+           
+  <!-- base variation attributes type. Each variation substition will extend this element -->
+  <complexType name="BaseRelationshipType">
+    <sequence>
+      <element ref="tns:Identifiers" />
+    </sequence>
+  </complexType>
+
+  <complexType name="CompetitivePricingType">
+    <sequence>
+      <element name="CompetitivePrices" type="tns:CompetitivePriceList" />
+      <element name="NumberOfOfferListings" type="tns:NumberOfOfferListingsType" minOccurs="0" />
+      <element name="TradeInValue" type="tns:MoneyType" minOccurs="0" />
+    </sequence>
+  </complexType>
+
+  <complexType name="CompetitivePriceList">
+    <sequence>
+      <element name="CompetitivePrice" type="tns:CompetitivePriceType" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="CompetitivePriceType">
+    <sequence>
+      <element name="CompetitivePriceId" type="string" />
+      <element name="Price" type="tns:PriceType" />
+    </sequence>
+    <attribute name="condition" type="string" use="required" />
+    <attribute name="subcondition" type="string" use="required" />
+    <attribute name="belongsToRequester" type="boolean" use="required" />
+  </complexType>
+  
+  <complexType name="OffersList">
+    <sequence>
+      <element name="Offer" type="tns:OfferType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="OfferType">
+    <sequence>
+        <element name="BuyingPrice" type="tns:PriceType"/>
+        <element name="RegularPrice" type="tns:MoneyType"/>
+        <element name="FulfillmentChannel" type="string"/>
+        <element name="ItemCondition" type="string"/>
+        <element name="ItemSubCondition" type="string"/>
+        <element name="SellerId" type="string"/>
+        <element name="SellerSKU" type="string"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="PriceType">
+    <sequence>
+      <element name="LandedPrice" type="tns:MoneyType" minOccurs="0" />
+      <element name="ListingPrice" type="tns:MoneyType"  />
+      <element name="Shipping" type="tns:MoneyType" minOccurs="0" />
+    </sequence>
+  </complexType>
+
+  <complexType name="MoneyType">
+    <sequence>
+      <element name="CurrencyCode" type="string" minOccurs="0" />
+      <element name="Amount" type="decimal" minOccurs="0" />
+    </sequence>
+  </complexType>
+  
+  <complexType name="NumberOfOfferListingsType">
+    <sequence>
+      <element name="OfferListingCount" type="tns:OfferListingCountType" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  
+  <complexType name="OfferListingCountType">
+    <simpleContent>
+      <extension base="integer">
+        <attribute name="condition" type="string" />
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <complexType name="SalesRankList">
+    <sequence>
+      <element name="SalesRank" type="tns:SalesRankType" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="SalesRankType">
+    <sequence>
+      <element name="ProductCategoryId" type="string" />
+      <element name="Rank" type="integer" />
+    </sequence>
+  </complexType>
+
+  <complexType name="LowestOfferListingList">
+    <sequence>
+      <element name="LowestOfferListing" type="tns:LowestOfferListingType" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="LowestOfferListingType">
+    <sequence>
+      <element name="Qualifiers" type="tns:QualifiersType" />
+      <element name="NumberOfOfferListingsConsidered" type="integer" minOccurs="0" />
+      <element name="SellerFeedbackCount" type="integer" />
+      <element name="Price" type="tns:PriceType" />
+      <element name="MultipleOffersAtLowestPrice" type="string" />
+    </sequence>
+  </complexType>
+
+  <complexType name="QualifiersType">
+    <sequence>
+      <element name="ItemCondition" type="string" />
+      <element name="ItemSubcondition" type="string" />
+      <element name="FulfillmentChannel" type="string" />
+      <element name="ShipsDomestically" type="string" />
+      <element name="ShippingTime" type="tns:ShippingTimeType" />
+      <element name="SellerPositiveFeedbackRating" type="string" />
+    </sequence>
+  </complexType>
+
+  <complexType name="ShippingTimeType">
+    <sequence>
+      <element name="Max" type="string" minOccurs="0" />
+    </sequence>
+  </complexType>
+  
+  <simpleType name="MarketplaceType">
+    <restriction base="string">
+      <pattern value="[A-Z0-9]+"/>
+    </restriction>
+  </simpleType>
+  
+  <simpleType name="ConditionType">
+      <restriction base="string">
+        <enumeration value="New"/>
+        <enumeration value="Used"/>
+        <enumeration value="Collectible"/>
+        <enumeration value="Refurbished"/>
+        <enumeration value="Club"/>
+      </restriction>
+  </simpleType>
+  
+  <simpleType name="FulfillmentChannelType">
+    <restriction base="string">
+      <enumeration value="Amazon"/>
+      <enumeration value="Merchant"/>
+    </restriction>
+  </simpleType>
+  
+  <complexType name="OfferCountType">
+    <sequence>
+      <element name="OfferCount" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <simpleContent>
+            <extension base="integer">
+              <attribute name="condition" type="string" use="required"/>
+              <attribute name="fulfillmentChannel" type="tns:FulfillmentChannelType" use="required"/>
+            </extension>
+          </simpleContent>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  
+  <complexType name="Points">
+    <sequence>
+      <element name="PointsNumber" type="integer" minOccurs="1"/>
+    </sequence>
+  </complexType>
+  
+  <complexType name="LowestPriceType">
+    <sequence>
+      <element name="LandedPrice" type="tns:MoneyType"/>
+      <element name="ListingPrice" type="tns:MoneyType"/>
+      <element name="Shipping" type="tns:MoneyType"/>
+      <element name="Points" type="tns:Points" minOccurs="0"/>
+    </sequence>
+    <attribute name="condition" type="string" use="required"/>
+    <attribute name="fulfillmentChannel" type="tns:FulfillmentChannelType" use="required"/>
+  </complexType>
+  
+  <complexType name="BuyBoxPriceType">
+    <sequence>
+      <element name="LandedPrice" type="tns:MoneyType"/>
+      <element name="ListingPrice" type="tns:MoneyType"/>
+      <element name="Shipping" type="tns:MoneyType"/>
+      <element name="Points" type="tns:Points" minOccurs="0"/>
+    </sequence>
+    <attribute name="condition" type="string" use="required"/>
+  </complexType>
+  
+  <simpleType name="AvailabilityType">
+    <restriction base="string">
+      <enumeration value="NOW"/>
+      <enumeration value="FUTURE_WITHOUT_DATE"/>
+      <enumeration value="FUTURE_WITH_DATE"/>
+    </restriction>
+  </simpleType>
+  
+  <complexType name="ShipsFromType">
+    <all>
+      <element name="State" type="string" minOccurs="0"/>
+      <element name="Country" type="string" minOccurs="0"/>
+    </all>
+  </complexType>
+  
+  <complexType name="SellerFeedbackType">
+    <sequence>
+      <element name="SellerPositiveFeedbackRating" type="double" minOccurs="0">
+        <annotation>
+          <documentation>Percentage of positive feedback rating in the
+            past 365 days</documentation>
+        </annotation>
+      </element>
+      <element name="FeedbackCount" type="long">
+        <annotation>
+          <documentation>Total number of feedbacks for the seller
+          </documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  
+  <complexType name="DetailedShippingTimeType">
+    <annotation>
+      <documentation>The minimum and maximum time in hours that the
+        item will likely be shipped once the order has been placed
+      </documentation>
+    </annotation>
+    <attribute name="minimumHours" type="short"/>
+    <attribute name="maximumHours" type="short"/>
+    <attribute name="availableDate" type="dateTime"/>
+    <attribute name="availabilityType" type="tns:AvailabilityType"/>                                        
+  </complexType>
+  
+  <complexType name="GetLowestPricedOffersForASINResult">
+    <sequence>
+      <element name="Identifier">
+        <annotation>
+          <documentation>TBD
+          </documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element name="MarketplaceId" type="tns:MarketplaceType"/>
+            <element name="ASIN" type="string"/>
+            <element name="ItemCondition" type="tns:ConditionType">
+              <annotation>
+                <documentation>The condition of the offer. If a
+                  used offer changes, the list of offers in the Offers tag will
+                  be only used items. The summary node will provide summary for
+                  the other conditions that can be used for repricing.
+                </documentation>
+              </annotation>
+            </element>
+            <element name="TimeOfOfferChange" type="dateTime" minOccurs="0">
+              <annotation>
+                <documentation>The update time for the offer.</documentation>
+              </annotation>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Summary">
+        <complexType>
+          <sequence>
+            <element name="TotalOfferCount" type="integer" minOccurs="1"/>
+            <element name="NumberOfOffers" type="tns:OfferCountType" minOccurs="0"/>
+            <element name="LowestPrices" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="LowestPrice" type="tns:LowestPriceType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="BuyBoxPrices" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="BuyBoxPrice" type="tns:BuyBoxPriceType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="ListPrice" type="tns:MoneyType" minOccurs="0"/>
+            <element name="SuggestedLowerPricePlusShipping" type="tns:MoneyType" minOccurs="0">
+              <annotation>
+                <documentation>Suggested Lower Price is based on a range of factors, including
+                  historical selling prices, recent Buy Box eligible prices, and input from
+                  customers for your products.</documentation>
+              </annotation>
+            </element>
+            <element name="BuyBoxEligibleOffers" type="tns:OfferCountType" minOccurs="0"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Offers">
+        <annotation>
+          <documentation>Top 20 competitive offers for the ASIN and
+            condition requested.</documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element name="Offer" minOccurs="0" maxOccurs="20">
+              <complexType>
+                <sequence>
+                  <element name="SubCondition" type="string"/>
+                  <element name="SellerFeedbackRating" type="tns:SellerFeedbackType" minOccurs="0"/>
+                  <element name="ShippingTime" type="tns:DetailedShippingTimeType"/>                                  
+                  <element name="ListingPrice" type="tns:MoneyType"/>
+                  <element name="Points" type="tns:Points" minOccurs="0"/>
+                  <element name="Shipping" type="tns:MoneyType"/>
+                  <element name="ShipsFrom" type="tns:ShipsFromType" minOccurs="0"/>
+                  <element name="IsFulfilledByAmazon" type="boolean"/>
+                  <element name="IsBuyBoxWinner" type="boolean" minOccurs="0">
+                    <annotation>
+                      <documentation> Indicates whether the offer is currently in the Buy Box. There can be up to two Buy Box winners at any time per ASIN.</documentation>
+                    </annotation>
+                  </element>  
+                  <element name="IsFeaturedMerchant" type="boolean" minOccurs="0"/> 
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+    <attribute name="MarketplaceID" type="string" use="required"/>
+    <attribute name="ItemCondition" type="string" use="required"/>
+    <attribute name="ASIN" type="string" use="required"/>
+    <attribute name="status" type="string" use="required"/>
+  </complexType>
+  
+  <complexType name="GetLowestPricedOffersForSKUResult">
+    <sequence>
+      <element name="Identifier">
+        <annotation>
+          <documentation>TBD
+          </documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element name="MarketplaceId" type="tns:MarketplaceType"/>
+            <element name="SellerSKU" type="string"/>
+            <element name="ItemCondition" type="tns:ConditionType">
+              <annotation>
+                <documentation>The condition of the offer. If a
+                  used offer changes, the list of offers in the Offers tag will
+                  be only used items. The summary node will provide summary for
+                  the other conditions that can be used for repricing.
+                </documentation>
+              </annotation>
+            </element>
+            <element name="TimeOfOfferChange" type="dateTime" minOccurs="0">
+              <annotation>
+                <documentation>The update time for the offer.</documentation>
+              </annotation>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Summary">
+        <complexType>
+          <sequence>
+            <element name="TotalOfferCount" type="integer" minOccurs="1"/>
+            <element name="NumberOfOffers" type="tns:OfferCountType" minOccurs="0"/>
+            <element name="LowestPrices" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="LowestPrice" type="tns:LowestPriceType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="BuyBoxPrices" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="BuyBoxPrice" type="tns:BuyBoxPriceType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="ListPrice" type="tns:MoneyType" minOccurs="0"/>
+            <element name="SuggestedLowerPricePlusShipping" type="tns:MoneyType" minOccurs="0">
+              <annotation>
+                <documentation>Suggested Lower Price is based on a range of factors, including
+                  historical selling prices, recent Buy Box eligible prices, and input from
+                  customers for your products.</documentation>
+              </annotation>
+            </element>
+            <element name="BuyBoxEligibleOffers" type="tns:OfferCountType" minOccurs="0"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Offers">
+        <annotation>
+          <documentation>Top 20 competitive offers for the SKU and
+            condition requested.</documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element name="Offer" minOccurs="0" maxOccurs="20">
+              <complexType>
+                <sequence>
+                  <element name="MyOffer" type="boolean"/>
+                  <element name="SubCondition" type="string"/>
+                  <element name="SellerFeedbackRating" type="tns:SellerFeedbackType" minOccurs="0"/>
+                  <element name="ShippingTime" type="tns:DetailedShippingTimeType"/>                 
+                  <element name="ListingPrice" type="tns:MoneyType"/>
+                  <element name="Points" type="tns:Points" minOccurs="0"/>
+                  <element name="Shipping" type="tns:MoneyType"/>
+                  <element name="ShipsFrom" type="tns:ShipsFromType" minOccurs="0"/>
+                  <element name="IsFulfilledByAmazon" type="boolean"/>
+                  <element name="IsBuyBoxWinner" type="boolean" minOccurs="0">
+                    <annotation>
+                      <documentation> Indicates whether the offer is currently in the Buy Box. There can be up to two Buy Box winners at any time per ASIN.</documentation>
+                    </annotation>
+                  </element>  
+                  <element name="IsFeaturedMerchant" type="boolean" minOccurs="0"/>
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+    <attribute name="MarketplaceID" type="string" use="required"/>
+    <attribute name="SKU" type="string" use="required"/>
+    <attribute name="ItemCondition" type="string" use="required"/>
+    <attribute name="status" type="string" use="required"/>
+  </complexType>
+  
+  <complexType name="GetLowestPricedOffersErrorType">
+    <sequence>
+        <element name="Code" type="tns:ErrorCode" minOccurs="0"/>
+        <element name="Type" type="tns:ErrorType" />
+        <element name="Message" type="string" />
+    </sequence>
+    <attribute name="MarketplaceID" type="string" use="required"/>
+    <attribute name="SKU" type="string"/>
+    <attribute name="ASIN" type="string"/>
+    <attribute name="ItemCondition" type="string" use="required"/>
+    <attribute name="status" type="string" use="required"/>
+  </complexType>
+    
+  <simpleType name="ErrorType">
+    <restriction base="string">
+      <enumeration value="Sender"/>
+      <enumeration value="Receiver"/>
+    </restriction>
+  </simpleType>
+  
+  <simpleType name="ErrorCode">
+    <restriction base="string">
+      <enumeration value="InvalidParameterValue"/>
+    </restriction>
+  </simpleType>
+  
+  
+  
+</schema>

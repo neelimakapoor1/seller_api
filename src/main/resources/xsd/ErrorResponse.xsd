@@ -1,0 +1,19 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://mws.amazonaws.com/doc/2009-01-01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ErrorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Error">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Type"/>
+              <xs:element type="xs:string" name="Code"/>
+              <xs:element type="xs:string" name="Message"/>
+              <xs:element type="xs:string" name="Detail"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="RequestID"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

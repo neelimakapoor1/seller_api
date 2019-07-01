@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetMatchingProductForIdResponse xmlns="http://mws.amazonaws.com/schema/Products/2011-10-01">
+   <GetMatchingProductForIdResult Id="B07HMQNYVG" IdType="ASIN" status="Success">
+      <Products xmlns:ns2="http://mws.amazonaws.com/schema/Products/2011-10-01/default.xsd">
+         <Product>
+            <Identifiers>
+               <MarketplaceASIN>
+                  <MarketplaceId>A21TJRUUN4KGV</MarketplaceId>
+                  <ASIN>B07HMQNYVG</ASIN>
+               </MarketplaceASIN>
+            </Identifiers>
+            <AttributeSets>
+               <ns2:ItemAttributes xml:lang="en-IN">
+                  <ns2:Binding>Office Product</ns2:Binding>
+                  <ns2:Brand>Aero</ns2:Brand>
+                  <ns2:Color>Black</ns2:Color>
+                  <ns2:ItemDimensions>
+                     <ns2:Height Units="inches">0.3937000</ns2:Height>
+                     <ns2:Length Units="inches">5.0393600</ns2:Length>
+                     <ns2:Width Units="inches">0.7874000</ns2:Width>
+                     <ns2:Weight Units="pounds">0.0661386786</ns2:Weight>
+                  </ns2:ItemDimensions>
+                  <ns2:Label>Shenzhen Eropoo Industry Co., Ltd</ns2:Label>
+                  <ns2:ListPrice>
+                     <ns2:Amount>1799.00</ns2:Amount>
+                     <ns2:CurrencyCode>INR</ns2:CurrencyCode>
+                  </ns2:ListPrice>
+                  <ns2:Manufacturer>Shenzhen Eropoo Industry Co., Ltd</ns2:Manufacturer>
+                  <ns2:Model>WPB1</ns2:Model>
+                  <ns2:PackageDimensions>
+                     <ns2:Height Units="inches">1.4173228346456694</ns2:Height>
+                     <ns2:Length Units="inches">6.141732283464567</ns2:Length>
+                     <ns2:Width Units="inches">2.5196850393700787</ns2:Width>
+                     <ns2:Weight Units="pounds">0.11023112380189792</ns2:Weight>
+                  </ns2:PackageDimensions>
+                  <ns2:PackageQuantity>1</ns2:PackageQuantity>
+                  <ns2:PartNumber>IL215</ns2:PartNumber>
+                  <ns2:ProductGroup>Office Product</ns2:ProductGroup>
+                  <ns2:ProductTypeName>OFFICE_PRODUCTS</ns2:ProductTypeName>
+                  <ns2:Publisher>Shenzhen Eropoo Industry Co., Ltd</ns2:Publisher>
+                  <ns2:SmallImage>
+                     <ns2:URL>http://ecx.images-amazon.com/images/I/41Wl552%2BQTL._SL75_.jpg</ns2:URL>
+                     <ns2:Height Units="pixels">75</ns2:Height>
+                     <ns2:Width Units="pixels">75</ns2:Width>
+                  </ns2:SmallImage>
+                  <ns2:Studio>Shenzhen Eropoo Industry Co., Ltd</ns2:Studio>
+                  <ns2:Title>Aero Rechargeable Slide Changer with Laser Pointer Pen. No Battery needed. Presentation Remote Wireless Presenter Clicker. 1 Year Warranty (with Cloth Pouch). Works with Mac Windows PC Powerpoint Keynote.</ns2:Title>
+               </ns2:ItemAttributes>
+            </AttributeSets>
+            <Relationships />
+            <SalesRankings>
+               <SalesRank>
+                  <ProductCategoryId>office_product_display_on_website</ProductCategoryId>
+                  <Rank>428</Rank>
+               </SalesRank>
+               <SalesRank>
+                  <ProductCategoryId>3591056031</ProductCategoryId>
+                  <Rank>7</Rank>
+               </SalesRank>
+               <SalesRank>
+                  <ProductCategoryId>3591076031</ProductCategoryId>
+                  <Rank>23</Rank>
+               </SalesRank>
+            </SalesRankings>
+         </Product>
+      </Products>
+   </GetMatchingProductForIdResult>
+   <ResponseMetadata>
+      <RequestId>ad5c624d-67cb-4e3a-82df-eb0c1fbdf5f1</RequestId>
+   </ResponseMetadata>
+</GetMatchingProductForIdResponse>

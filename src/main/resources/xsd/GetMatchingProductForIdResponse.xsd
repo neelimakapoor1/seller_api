@@ -1,0 +1,87 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://mws.amazonaws.com/schema/Products/2011-10-01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MarketplaceId" type="xs:string"/>
+  <xs:element name="ASIN" type="xs:string"/>
+  <xs:element name="MarketplaceASIN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:MarketplaceId" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:ASIN" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProductCategoryId" type="xs:string"/>
+  <xs:element name="Rank" type="xs:short"/>
+  <xs:element name="SalesRank">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:ProductCategoryId" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:Rank" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Identifiers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:MarketplaceASIN" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AttributeSets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="def:ItemAttributes" xmlns:def="http://mws.amazonaws.com/schema/Products/2011-10-01/default.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Relationships" type="xs:string"/>
+  <xs:element name="SalesRankings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:SalesRank" maxOccurs="unbounded" minOccurs="0" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Product">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:Identifiers" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:AttributeSets" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:Relationships" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:SalesRankings" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Products">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:Product" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestId" type="xs:string"/>
+  <xs:element name="GetMatchingProductForIdResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:Products" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="Id"/>
+      <xs:attribute type="xs:string" name="IdType"/>
+      <xs:attribute type="xs:string" name="status"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResponseMetadata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:RequestId" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMatchingProductForIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns:GetMatchingProductForIdResult" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+        <xs:element ref="ns:ResponseMetadata" xmlns:ns="http://mws.amazonaws.com/schema/Products/2011-10-01"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
